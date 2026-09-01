@@ -1,0 +1,155 @@
+{
+  "name": "Ingest Notes",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -16
+      ],
+      "id": "ab0d205c-1e53-4ed1-a151-d3a9eb829512",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1c1bf5bf-65ce-434f-93af-59edfef122cb",
+              "name": "notes",
+              "value": "# Web Development, Automation, and DevOps  ## Web Development  Web development is the process of creating and maintaining websites and web applications. It includes **frontend development**, which focuses on the user interface using technologies such as HTML, CSS, JavaScript, and React, and **backend development**, which handles server-side logic, databases, and APIs using technologies such as Node.js, Java, Python, or PHP.  ## Automation  Automation involves using tools and scripts to perform repetitive tasks automatically with minimal human intervention. It helps improve efficiency, reduce manual errors, and save time. Automation can be used for tasks such as testing, deployments, data processing, notifications, and workflow management. Tools such as **n8n** can be used to automate workflows and connect different applications and services.  ## DevOps  DevOps is a combination of **Development (Dev)** and **Operations (Ops)**. Its goal is to improve collaboration between software developers and IT operations teams and enable faster, more reliable software delivery. DevOps practices include **Continuous Integration and Continuous Deployment (CI/CD), infrastructure automation, monitoring, containerization, and cloud computing**. Popular DevOps tools include Git, Docker, Kubernetes, Jenkins, and Azure DevOps.  Together, Web Development, Automation, and DevOps help organizations build applications, automate workflows, and deliver software efficiently and reliably.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -192,
+        -16
+      ],
+      "id": "d813737e-a79a-4936-8ad5-65a62ac55184",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "e90f0545-b8da-4234-8d2b-e1a5449cf5ea",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HA6aL4RCP28eXjtN",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        176
+      ],
+      "id": "8dda39e4-abf3-4137-9a5d-2f6984790d25",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "qD9rk6v9azLDMuqU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        192
+      ],
+      "id": "d5871ad0-14a2-49d1-962f-15c8a3cab7be",
+      "name": "Default Data Loader"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "589a5b69-a337-4cd0-a1f4-4a55b37bec73",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "400df55d6f81a3001dbd0fe92a5432b54bc100537ad6adf402005546904dc6c7"
+  },
+  "nodeGroups": [],
+  "id": "MvkP3ITFLUDMnY9X",
+  "tags": []
+}
