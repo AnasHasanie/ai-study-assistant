@@ -38,3 +38,20 @@ Text Splitter
 Gemini Embeddings
     ↓
 Supabase Vector Store
+
+2nd workflow
+
+User Email
+    ↓
+Gmail Trigger
+    ↓
+AI Agent
+    ├── Google Gemini Chat Model
+    ├── Simple Memory
+    └── Supabase Vector Store
+            ↓
+       Search Notes
+            ↓
+        AI Response
+            ↓
+      Gmail Send Message
