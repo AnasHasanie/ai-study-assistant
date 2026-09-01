@@ -22,7 +22,7 @@ The system allows users to ask questions about their personal study notes throug
 
 ## 🏗️ Architecture
 
-### Workflow 1: Notes Ingestion
+### Workflow : Notes Ingestion and study chat bot
 
 ```text
 Study Notes
